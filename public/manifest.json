@@ -1,0 +1,16 @@
+{
+  "name": "Wirely",
+  "short_name": "Wirely",
+  "description": "Wirely — Fast. Private. Connected.",
+  "start_url": "/chat.html",
+  "display": "standalone",
+  "background_color": "#12232A",
+  "theme_color": "#12232A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

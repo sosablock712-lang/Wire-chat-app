@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wire — Create account</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand"><span class="brand-mark"></span><h1>Wire</h1></div>
+      <p class="tagline">Set up your line</p>
+
+      <div class="form-error" id="formError"></div>
+
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="displayName">Display name</label>
+          <input type="text" id="displayName" name="displayName" autocomplete="name" maxlength="40" />
+        </div>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required />
+          <p class="field-hint">3–20 characters: letters, numbers, underscores.</p>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="new-password" required />
+          <p class="field-hint">At least 8 characters.</p>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Create account</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="/index.html">Sign in</a></p>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/register.js"></script>
+</body>
+</html>

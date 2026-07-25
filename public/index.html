@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wire — Sign in</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand"><span class="brand-mark"></span><h1>Wire</h1></div>
+      <p class="tagline">A quiet line to the people you talk to</p>
+
+      <div class="form-error" id="formError"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Sign in</button>
+      </form>
+
+      <p class="auth-switch">New here? <a href="/register.html">Create an account</a></p>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

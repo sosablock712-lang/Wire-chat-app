@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wire</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="chat-shell" id="chatShell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand" id="openProfileBtn" title="Your profile">
+          <div class="avatar" id="myAvatar"><span></span></div>
+          <h1>Wire</h1>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="themeToggleBtn" title="Toggle theme">&#9788;</button>
+          <button class="icon-btn" id="logoutBtn" title="Sign out">&#8631;</button>
+        </div>
+      </div>
+
+      <div class="sidebar-search">
+        <input type="text" id="chatSearchInput" placeholder="Search chats or messages…" />
+      </div>
+
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" data-tab="chats">Chats</button>
+        <button class="tab-btn" data-tab="requests">
+          Requests <span class="tab-badge" id="requestBadge" hidden>0</span>
+        </button>
+      </div>
+
+      <div class="contact-list" id="contactList">
+        <div class="empty-contacts">Loading your chats…</div>
+      </div>
+
+      <div class="contact-list" id="requestsList" hidden>
+        <div class="empty-contacts">No pending requests.</div>
+      </div>
+
+      <button class="fab" id="newChatFab" title="New chat">+</button>
+    </aside>
+
+    <main class="conversation" id="conversation">
+      <div class="no-conversation">
+        Select a chat, or tap the + button to start a new conversation.
+      </div>
+    </main>
+  </div>
+
+  <!-- New chat / search users modal -->
+  <div class="modal-overlay" id="newChatModal" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>New chat</h2>
+        <button class="icon-btn" id="closeNewChatModal">&times;</button>
+      </div>
+      <input type="text" id="userSearchInput" placeholder="Search by username…" autocomplete="off" />
+      <div class="search-results" id="userSearchResults"></div>
+    </div>
+  </div>
+
+  <!-- Profile modal -->
+  <div class="modal-overlay" id="profileModal" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Your profile</h2>
+        <button class="icon-btn" id="closeProfileModal">&times;</button>
+      </div>
+      <div class="profile-avatar-row">
+        <div class="avatar avatar-lg" id="profileAvatarPreview"><span></span></div>
+        <label class="btn-secondary" for="avatarFileInput">Change photo</label>
+        <input type="file" id="avatarFileInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden />
+      </div>
+      <div class="field">
+        <label for="profileDisplayName">Display name</label>
+        <input type="text" id="profileDisplayName" maxlength="40" />
+      </div>
+      <div class="field">
+        <label for="profileBio">Bio</label>
+        <textarea id="profileBio" maxlength="200" rows="3"></textarea>
+      </div>
+      <div class="field-hint" id="profileUsernameHint"></div>
+      <button class="btn-primary" id="saveProfileBtn">Save</button>
+      <div class="form-error" id="profileError"></div>
+    </div>
+  </div>
+
+  <!-- Forward message modal -->
+  <div class="modal-overlay" id="forwardModal" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Forward message</h2>
+        <button class="icon-btn" id="closeForwardModal">&times;</button>
+      </div>
+      <div class="search-results" id="forwardContactList"></div>
+    </div>
+  </div>
+
+  <audio id="notifySound" preload="auto"></audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/emoji.js"></script>
+  <script src="/js/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wirely</title>
+  <meta name="description" content="Wirely — Fast. Private. Connected." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="splash" id="splashScreen">
+    <svg viewBox="0 0 100 100"><path class="splash-bolt" d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+    <div class="splash-wordmark"><h1>Wirely</h1><p>Fast. Private. Connected.</p></div>
+  </div>
+
+  <div class="app-shell">
+    <nav class="app-rail">
+      <svg class="rail-logo" viewBox="0 0 100 100" fill="currentColor"><path d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+
+      <button class="rail-btn active" data-view="home" title="Home"></button>
+      <button class="rail-btn" data-view="chats" title="Chats">
+        <span class="rail-badge" id="railChatsBadge" hidden></span>
+      </button>
+      <button class="rail-btn" data-view="people" title="People">
+        <span class="rail-badge" id="railPeopleBadge" hidden></span>
+      </button>
+      <button class="rail-btn" data-view="notifications" title="Notifications">
+        <span class="rail-badge" id="railNotifBadge" hidden></span>
+      </button>
+
+      <div class="rail-spacer"></div>
+      <button class="rail-avatar-btn" id="openSettingsBtn" title="Settings">
+        <div class="avatar" id="myAvatar"><span></span></div>
+      </button>
+      <button class="rail-btn" id="logoutBtn" title="Sign out"></button>
+    </nav>
+
+    <div class="app-content">
+      <!-- HOME FEED -->
+      <section class="view-panel active" data-view="home" id="homeView">
+        <div class="view-header"><h2>Home</h2></div>
+        <div class="feed-scroll" id="feedScroll">
+          <div class="composer-box">
+            <div class="composer-box-top">
+              <div class="avatar" id="feedComposerAvatar"><span></span></div>
+              <textarea id="postContentInput" rows="1" placeholder="Share something…" maxlength="2000"></textarea>
+            </div>
+            <div class="composer-box-preview" id="postImagePreview">
+              <img id="postImagePreviewImg" alt="" />
+              <button type="button" id="removePostImageBtn"></button>
+            </div>
+            <div class="composer-box-actions">
+              <div class="composer-box-tools">
+                <button type="button" id="postImageBtn" title="Add photo"></button>
+                <input type="file" id="postImageInput" accept="image/*" hidden />
+              </div>
+              <button type="button" class="composer-box-post" id="submitPostBtn" disabled>Post</button>
+            </div>
+          </div>
+
+          <div id="feedList"></div>
+          <div class="feed-sentinel" id="feedSentinel"></div>
+          <div class="feed-end" id="feedEnd" hidden>You're all caught up.</div>
+        </div>
+      </section>
+
+      <!-- CHATS -->
+      <section class="view-panel" data-view="chats" id="chatsView">
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header"><h1 style="font-family:var(--font-display);font-size:18px;margin:0;">Chats</h1></div>
+          <div class="sidebar-search">
+            <input type="text" id="chatSearchInput" placeholder="Search chats or messages…" />
+          </div>
+          <div class="contact-list" id="contactList">
+            <div class="empty-contacts">Loading your chats…</div>
+          </div>
+        </aside>
+        <main class="conversation" id="conversation">
+          <div class="no-conversation">Select a chat from the list, or find someone new in People.</div>
+        </main>
+      </section>
+
+      <!-- PEOPLE -->
+      <section class="view-panel" data-view="people" id="peopleView">
+        <div class="view-header"><h2>People</h2></div>
+        <div style="flex:1;overflow-y:auto;">
+          <div style="max-width:640px;margin:0 auto;width:100%;padding:12px 16px;">
+            <div class="people-subtab-row" style="padding:0 0 10px;">
+              <button class="people-subtab active" data-subtab="requests">Requests</button>
+              <button class="people-subtab" data-subtab="discover">Discover</button>
+            </div>
+            <div id="requestsList"></div>
+            <div id="discoverPanel" hidden>
+              <div class="people-toolbar" style="padding:10px 0;border:none;">
+                <input type="text" id="discoverSearchInput" placeholder="Search people…" style="flex:1;padding:9px 14px;background:var(--ink-soft);border:1px solid rgba(143,163,170,0.18);border-radius:18px;color:var(--text-primary);font-size:13px;" />
+                <select id="discoverSortSelect">
+                  <option value="recent">Newest</option>
+                  <option value="online">Online first</option>
+                  <option value="alpha">A–Z</option>
+                </select>
+              </div>
+              <div id="discoverList"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTIFICATIONS -->
+      <section class="view-panel" data-view="notifications" id="notificationsView">
+        <div class="view-header">
+          <h2>Notifications</h2>
+          <button class="btn-secondary" id="markAllReadBtn">Mark all read</button>
+        </div>
+        <div class="notif-list" id="notifList"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- New chat / search users modal -->
+  <div class="modal-overlay" id="newChatModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>New chat</h2><button class="icon-btn" id="closeNewChatModal"></button></div>
+      <input type="text" id="userSearchInput" placeholder="Search by username…" autocomplete="off" />
+      <div class="search-results" id="userSearchResults"></div>
+    </div>
+  </div>
+
+  <!-- Settings modal (profile + theme) -->
+  <div class="modal-overlay" id="profileModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Settings</h2><button class="icon-btn" id="closeProfileModal"></button></div>
+      <div class="profile-avatar-row">
+        <div class="avatar avatar-lg" id="profileAvatarPreview"><span></span></div>
+        <label class="btn-secondary" for="avatarFileInput">Change photo</label>
+        <input type="file" id="avatarFileInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden />
+      </div>
+      <div class="field"><label for="profileDisplayName">Display name</label><input type="text" id="profileDisplayName" maxlength="40" /></div>
+      <div class="field"><label for="profileBio">Bio</label><textarea id="profileBio" maxlength="200" rows="3"></textarea></div>
+      <div class="field-hint" id="profileUsernameHint"></div>
+      <button class="btn-primary" id="saveProfileBtn">Save profile</button>
+      <div class="form-error" id="profileError"></div>
+      <div class="settings-section-title">Theme</div>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+  </div>
+
+  <!-- Forward message modal -->
+  <div class="modal-overlay" id="forwardModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Forward message</h2><button class="icon-btn" id="closeForwardModal"></button></div>
+      <div class="search-results" id="forwardContactList"></div>
+    </div>
+  </div>
+
+  <!-- Profile view modal (View Profile on a contact) -->
+  <div class="modal-overlay" id="profileViewModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Profile</h2><button class="icon-btn" id="closeProfileViewModal"></button></div>
+      <div class="profile-view-header" id="profileViewBody"></div>
+    </div>
+  </div>
+
+  <!-- Shared media modal -->
+  <div class="modal-overlay" id="sharedMediaModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Shared media</h2><button class="icon-btn" id="closeSharedMediaModal"></button></div>
+      <div class="media-grid" id="sharedMediaGrid"></div>
+    </div>
+  </div>
+
+  <script src="/js/splash.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/icons.js"></script>
+  <script src="/js/emoji.js"></script>
+  <script src="/js/chat.js"></script>
+</body>
+</html>

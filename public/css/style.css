@@ -372,25 +372,61 @@ textarea, input, select { font-family: inherit; }
 .msg-row.mine .msg-row-inner { flex-direction: row-reverse; }
 
 .bubble {
-  padding: 9px 12px; border-radius: var(--radius); font-size: 14px; line-height: 1.45; word-wrap: break-word;
-  white-space: pre-wrap; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  position: relative;
+  padding: 12px 15px;
+  border-radius: 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  box-shadow: 0 8px 18px rgba(0,0,0,.18);
+  transition: all .18s ease;
+  max-width: 100%;
 }
-.msg-row:not(.mine) .bubble { background: var(--bubble-in-bg); color: var(--bubble-in-text); border-bottom-left-radius: 4px; }
-.msg-row.mine .bubble { background: var(--bubble-out-bg); color: var(--bubble-out-text); border-bottom-right-radius: 4px; }
-.bubble.deleted { font-style: italic; opacity: 0.6; }
 
-.bubble-reply {
-  border-left: 3px solid var(--accent); padding: 4px 8px; margin-bottom: 6px; border-radius: 4px;
-  font-size: 12.5px; opacity: 0.85; background: rgba(0,0,0,0.08); cursor: pointer;
+.msg-row:not(.mine) .bubble{
+  background: linear-gradient(180deg,#2f4048,#26353d);
+  color:#ffffff;
+  border-bottom-left-radius:8px;
 }
-.bubble-reply-sender { font-weight: 700; display: block; }
 
-.bubble-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 3px; }
-.bubble-time { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3px; opacity: 0.6; }
-.bubble-edited { font-size: 10px; opacity: 0.5; font-style: italic; }
-.ticks { font-size: 13px; line-height: 1; letter-spacing: -2px; opacity: 0.7; }
-.ticks.read { color: var(--tick-read); opacity: 1; }
+.msg-row.mine .bubble{
+  background:linear-gradient(135deg,#ff9a3d,#ff7b22);
+  color:#fff;
+  border-bottom-right-radius:8px;
+}
 
+.msg-row:hover .bubble{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.22);
+}
+
+.bubble.deleted{
+  opacity:.6;
+  font-style:italic;
+}
+
+.bubble-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+}
+
+.bubble-time{
+  font-size:10px;
+  opacity:.75;
+}
+
+.ticks{
+  font-size:12px;
+  letter-spacing:-1px;
+}
+
+.ticks.read{
+  color:#4FC3F7;
+}
 .msg-actions { display: flex; gap: 2px; opacity: 0; transition: opacity 0.12s ease; align-self: center; }
 .msg-row:hover .msg-actions { opacity: 1; }
 .msg-actions button {

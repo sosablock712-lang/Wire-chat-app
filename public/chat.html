@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Wirely</title>
+  <meta name="description" content="Wirely — Fast. Private. Connected." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="splash" id="splashScreen">
+    <svg viewBox="0 0 100 100"><path class="splash-bolt" d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+    <div class="splash-wordmark"><h1>Wirely</h1><p>Fast. Private. Connected.</p></div>
+  </div>
+
+  <div class="app-shell-v27">
+    <div class="app-main-v27" id="appMain">
+
+      <!-- HOME -->
+      <section class="v27-view active" data-view="home" id="homeView">
+        <div class="home-header">
+          <div class="home-header-title">
+            <svg class="brand-mark-lg" viewBox="0 0 100 100" fill="currentColor"><path d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+            WIRELY
+          </div>
+          <div class="home-header-actions">
+            <button class="icon-btn" id="openSearchBtn" title="Search"></button>
+            <button class="icon-btn" id="openMeShortcutBtn" title="Profile" style="border-radius:50%;overflow:hidden;padding:0;">
+              <div class="avatar" id="homeProfileShortcut" style="width:100%;height:100%;"><span></span></div>
+            </button>
+          </div>
+        </div>
+        <div class="feed-scroll-v27" id="feedScrollV27">
+          <div class="composer-card" id="composerCard">
+            <div class="composer-card-top">
+              <div class="avatar" id="feedComposerAvatar"><span></span></div>
+              <textarea id="postContentInput" rows="1" placeholder="What's happening today?" maxlength="2000"></textarea>
+            </div>
+            <div class="composer-preview" id="postImagePreview"><img id="postImagePreviewImg" alt="" /><button type="button" id="removePostImageBtn"></button></div>
+            <div class="composer-tag" id="postFeelingTag"></div>
+            <div class="composer-tag" id="postLocationTag"></div>
+            <div class="composer-card-actions">
+              <div class="composer-quick-actions">
+                <button type="button" id="postImageBtn" title="Photo"></button>
+                <button type="button" id="postFeelingBtn" title="Feeling"></button>
+                <button type="button" id="postLocationBtn" title="Location"></button>
+                <input type="file" id="postImageInput" accept="image/*" hidden />
+              </div>
+              <button type="button" class="composer-post-btn" id="submitPostBtn" disabled>Post</button>
+            </div>
+          </div>
+          <div id="feedListV27"></div>
+          <div class="feed-sentinel" id="feedSentinelV27"></div>
+          <div class="feed-end" id="feedEndV27" hidden>You're all caught up.</div>
+        </div>
+      </section>
+
+      <!-- CHATS -->
+      <section class="v27-view" data-view="chats" id="chatsView">
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header"><h1 style="font-family:var(--font-display);font-size:18px;margin:0;">Chats</h1></div>
+          <div class="sidebar-search"><input type="text" id="chatSearchInput" placeholder="Search chats or messages…" /></div>
+          <div class="contact-list" id="contactList"><div class="empty-contacts">Loading your chats…</div></div>
+        </aside>
+        <main class="conversation" id="conversation">
+          <div class="no-conversation">Select a chat from the list, or find someone new in People.</div>
+        </main>
+      </section>
+
+      <!-- PEOPLE -->
+      <section class="v27-view" data-view="people" id="peopleView">
+        <div class="view-header"><h2>People</h2></div>
+        <div style="flex:1;overflow-y:auto;">
+          <div style="max-width:640px;margin:0 auto;width:100%;padding:0 16px 16px;">
+            <div class="sidebar-search" style="padding:12px 0;"><input type="text" id="peopleSearchInput" placeholder="Search people…" /></div>
+            <div class="people-subtab-row" style="padding:0 0 10px;">
+              <button class="people-subtab active" data-subtab="suggested">Suggested</button>
+              <button class="people-subtab" data-subtab="requests">Requests</button>
+              <button class="people-subtab" data-subtab="online">Online</button>
+            </div>
+            <div id="requestsList" hidden></div>
+            <div id="onlinePeopleList" hidden></div>
+            <div id="discoverPanel">
+              <div id="discoverList"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTIFICATIONS -->
+      <section class="v27-view" data-view="notifications" id="notificationsView">
+        <div class="view-header">
+          <h2>Notifications</h2>
+          <button class="btn-secondary" id="clearAllNotifsBtn">Clear all</button>
+        </div>
+        <div class="notif-category-tabs" id="notifCategoryTabs">
+          <button class="active" data-cat="all">All</button>
+          <button data-cat="like">Likes</button>
+          <button data-cat="comment">Comments</button>
+          <button data-cat="friend_request">Friends</button>
+          <button data-cat="message">Messages</button>
+        </div>
+        <div class="notif-list" id="notifList"></div>
+      </section>
+
+      <!-- ME -->
+      <section class="v27-view" data-view="me" id="meView">
+        <div style="flex:1;overflow-y:auto;">
+          <div class="profile-cover" id="meCover">
+            <button class="profile-cover-edit-btn" id="editCoverBtn"></button>
+            <input type="file" id="coverFileInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden />
+          </div>
+          <div class="profile-header-block">
+            <div class="avatar avatar-lg" id="meAvatarLg"><span></span></div>
+            <div class="profile-header-name" id="meName"></div>
+            <div class="profile-header-username" id="meUsername"></div>
+            <div class="profile-header-bio" id="meBio"></div>
+            <div class="profile-link-row">
+              <span id="meProfileLink"></span>
+              <button id="copyProfileLinkBtn" title="Copy link"></button>
+            </div>
+            <div class="profile-stats-row">
+              <button data-stat="friends"><b id="statFriends">0</b><span>Friends</span></button>
+              <button data-stat="followers"><b id="statFollowers">0</b><span>Followers</span></button>
+              <button data-stat="following"><b id="statFollowing">0</b><span>Following</span></button>
+              <button data-stat="posts"><b id="statPosts">0</b><span>Posts</span></button>
+            </div>
+            <div class="profile-action-row">
+              <button class="btn-secondary" id="editProfileBtn">Edit Profile</button>
+              <button class="btn-secondary" id="shareProfileBtn">Share Profile</button>
+              <button class="icon-btn" id="openSettingsBtn"></button>
+            </div>
+          </div>
+          <div class="profile-tabs">
+            <button class="profile-tab active" data-metab="posts"></button>
+            <button class="profile-tab" data-metab="saved"></button>
+          </div>
+          <div class="profile-posts-grid" id="mePostsGrid"></div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="bn-btn active" data-view="home">Home<span class="rail-badge" hidden></span></button>
+      <button class="bn-btn" data-view="chats">Chats<span class="bn-badge" id="bnChatsBadge" hidden></span></button>
+      <button class="bn-btn" data-view="people">People<span class="bn-badge" id="bnPeopleBadge" hidden></span></button>
+      <button class="bn-btn" data-view="notifications">Alerts<span class="bn-badge" id="bnNotifBadge" hidden></span></button>
+      <button class="bn-btn" data-view="me">Me</button>
+    </nav>
+  </div>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-bar">
+      <button class="icon-btn" id="closeSearchBtn"></button>
+      <input type="text" id="globalSearchInput" placeholder="Search people, posts, #hashtags, @mentions…" autocomplete="off" />
+    </div>
+    <div class="search-tabs">
+      <button class="search-tab active" data-stab="people">People</button>
+      <button class="search-tab" data-stab="posts">Posts</button>
+    </div>
+    <div class="search-overlay-results" id="searchResults"></div>
+  </div>
+
+  <!-- New chat / search users modal -->
+  <div class="modal-overlay" id="newChatModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>New chat</h2><button class="icon-btn" id="closeNewChatModal"></button></div>
+      <input type="text" id="userSearchInput" placeholder="Search by username…" autocomplete="off" />
+      <div class="search-results" id="userSearchResults"></div>
+    </div>
+  </div>
+
+  <!-- Edit Profile modal -->
+  <div class="modal-overlay" id="profileModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Edit Profile</h2><button class="icon-btn" id="closeProfileModal"></button></div>
+      <div class="profile-avatar-row">
+        <div class="avatar avatar-lg" id="profileAvatarPreview"><span></span></div>
+        <label class="btn-secondary" for="avatarFileInput">Change photo</label>
+        <input type="file" id="avatarFileInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden />
+      </div>
+      <div class="field"><label for="profileDisplayName">Display name</label><input type="text" id="profileDisplayName" maxlength="40" /></div>
+      <div class="field"><label for="profileBio">Bio</label><textarea id="profileBio" maxlength="200" rows="3"></textarea></div>
+      <div class="field-hint" id="profileUsernameHint"></div>
+      <div class="settings-section-title">Profile Badge</div>
+      <div class="theme-grid" id="badgeGrid"></div>
+      <button class="btn-primary" id="saveProfileBtn">Save profile</button>
+      <div class="form-error" id="profileError"></div>
+    </div>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="modal-overlay" id="settingsModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Settings</h2><button class="icon-btn" id="closeSettingsModal"></button></div>
+      <div class="settings-section-title">Appearance</div>
+      <div class="theme-grid" id="themeGrid"></div>
+      <div class="settings-section-title">Privacy</div>
+      <div class="settings-list">
+        <div class="settings-row">
+          <span class="settings-row-label">Private account</span>
+          <button class="toggle-switch" id="privacyToggle"></button>
+        </div>
+      </div>
+      <div class="settings-section-title">Notifications</div>
+      <div class="settings-list">
+        <div class="settings-row"><span class="settings-row-label">Notification sound</span><button class="toggle-switch" id="soundToggle"></button></div>
+        <div class="settings-row"><span class="settings-row-label">Browser notifications</span><button class="toggle-switch" id="browserNotifToggle"></button></div>
+      </div>
+      <div class="settings-section-title">Chat Wallpaper</div>
+      <div class="theme-grid" id="wallpaperGrid"></div>
+      <div class="settings-section-title">Storage</div>
+      <div class="settings-list"><div class="settings-row"><span class="settings-row-label">Uploads are stored on the server</span></div></div>
+      <div class="settings-section-title">Account</div>
+      <div class="settings-list">
+        <button class="settings-row" id="settingsLogoutBtn" style="width:100%;border:none;background:none;cursor:pointer;text-align:left;color:#E8988D;">
+          <span class="settings-row-label">Sign out</span>
+        </button>
+      </div>
+      <div class="settings-section-title">About</div>
+      <div class="settings-list"><div class="settings-row"><span class="settings-row-label">Wirely Beta 2.7</span><span class="settings-row-value">Fast. Private. Connected.</span></div></div>
+    </div>
+  </div>
+
+  <!-- Forward message modal -->
+  <div class="modal-overlay" id="forwardModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Forward message</h2><button class="icon-btn" id="closeForwardModal"></button></div>
+      <div class="search-results" id="forwardContactList"></div>
+    </div>
+  </div>
+
+  <!-- Profile view modal -->
+  <div class="modal-overlay" id="profileViewModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Profile</h2><button class="icon-btn" id="closeProfileViewModal"></button></div>
+      <div class="profile-view-header" id="profileViewBody"></div>
+    </div>
+  </div>
+
+  <!-- Shared media modal (media / voice / links tabs) -->
+  <div class="modal-overlay" id="sharedMediaModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2>Shared content</h2><button class="icon-btn" id="closeSharedMediaModal"></button></div>
+      <div class="people-subtab-row">
+        <button class="people-subtab active" data-mtab="media">Media</button>
+        <button class="people-subtab" data-mtab="voice">Voice</button>
+        <button class="people-subtab" data-mtab="links">Links</button>
+      </div>
+      <div class="media-grid" id="sharedMediaGrid"></div>
+      <div class="search-results" id="sharedVoiceList" hidden></div>
+      <div class="search-results" id="sharedLinksList" hidden></div>
+    </div>
+  </div>
+
+  <!-- Report modal -->
+  <div class="modal-overlay" id="reportModal" hidden>
+    <div class="modal">
+      <div class="modal-header"><h2 id="reportModalTitle">Report</h2><button class="icon-btn" id="closeReportModal"></button></div>
+      <textarea id="reportReasonInput" rows="4" placeholder="Tell us what's wrong (optional)" style="width:100%;background:var(--ink);border:1px solid rgba(143,163,170,0.18);border-radius:8px;color:var(--text-primary);padding:10px;font-family:inherit;font-size:13px;"></textarea>
+      <button class="btn-primary" id="submitReportBtn">Submit report</button>
+    </div>
+  </div>
+
+  <!-- Comments bottom sheet -->
+  <div class="sheet-overlay" id="commentsSheetOverlay">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">Comments</div>
+      <div class="sheet-body" id="commentsSheetBody"></div>
+      <div class="sheet-footer">
+        <div class="avatar" id="commentComposerAvatar" style="width:32px;height:32px;font-size:13px;"><span></span></div>
+        <input type="text" id="commentSheetInput" placeholder="Add a comment…" maxlength="500" />
+        <button type="button" id="commentSheetSend"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post menu bottom sheet -->
+  <div class="sheet-overlay" id="postMenuOverlay">
+    <div class="bottom-sheet post-menu-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-body" id="postMenuBody"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose"></button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev"></button>
+    <img id="lightboxImg" alt="" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext"></button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <!-- Onboarding -->
+  <div class="onboarding-overlay" id="onboardingOverlay">
+    <div class="onboarding-progress" id="onboardingProgress"></div>
+    <div class="onboarding-body" id="onboardingBody"></div>
+    <div class="onboarding-footer">
+      <button class="btn-secondary" id="onboardingBackBtn" hidden>Back</button>
+      <button class="btn-primary" id="onboardingNextBtn">Next</button>
+    </div>
+  </div>
+
+  <script src="/js/splash.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/icons.js"></script>
+  <script src="/js/emoji.js"></script>
+  <script src="/js/chat.js"></script>
+</body>
+</html>

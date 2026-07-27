@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wirely — Sign in</title>
+  <meta name="description" content="Wirely — Fast. Private. Connected." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="splash" id="splashScreen">
+    <svg viewBox="0 0 100 100"><path class="splash-bolt" d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+    <div class="splash-wordmark"><h1>Wirely</h1><p>Fast. Private. Connected.</p></div>
+  </div>
+
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 100 100" fill="currentColor"><path d="M58 4 L18 54 L46 54 L40 96 L84 40 L54 40 Z" /></svg>
+        <h1>Wirely</h1>
+      </div>
+      <p class="tagline">Fast. Private. Connected.</p>
+
+      <div class="form-error" id="formError"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Sign in</button>
+      </form>
+
+      <p class="auth-switch">New here? <a href="/register.html">Create an account</a></p>
+    </div>
+  </div>
+
+  <script src="/js/splash.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

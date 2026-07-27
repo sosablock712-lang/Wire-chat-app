@@ -1271,16 +1271,23 @@ function appendMessage(message, opts = {}) {
     </div>`;
 
   row.innerHTML = `
-    <div class="msg-row-inner">
-      ${actionsHtml}
-      <div class="bubble ${message.deleted_at ? 'deleted' : ''}">
+    <div class="bubble ${message.deleted_at ? 'deleted' : ''}">
+    <div class="bubble-body">
         ${bubbleContentHtml(message, opts.highlight)}
-        <div class="bubble-footer">
-          <span class="bubble-edited" ${message.edited_at ? '' : 'hidden'}>edited</span>
-          <span class="bubble-time">${formatTime(message.created_at)}</span>
-          ${renderTicksHtml(message)}
-        </div>
-      </div>
+    </div>
+
+    <div class="bubble-footer">
+        <span class="bubble-edited" ${message.edited_at ? '' : 'hidden'}>
+            edited
+        </span>
+
+        <span class="bubble-time">
+            ${formatTime(message.created_at)}
+        </span>
+
+        ${renderTicksHtml(message)}
+    </div>
+</div>
     </div>
     ${reactionsHtml(message.reactions)}
   `;

@@ -850,10 +850,31 @@ textarea, input, select { font-family: inherit; }
 .search-overlay-results { flex: 1; overflow-y: auto; padding: 8px 18px; }
 
 /* ---------- Badge chip (verification) ---------- */
-.badge-chip { display: inline-flex; width: 15px; height: 15px; vertical-align: -2px; margin-left: 2px; }
-.badge-chip.blue_check { color: #3897F0; }
-.badge-chip.gold_lightning { color: #E8A93D; }
-.badge-chip.red_check { color: #E0455A; }
+.badge-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  vertical-align: middle;
+}
+
+.badge-chip.blue_check {
+  background: #1D9BF0;
+}
+
+.badge-chip.red_check {
+  background: #F44336;
+}
+
+.badge-chip.gold_lightning {
+  background: linear-gradient(135deg,#FFD54F,#FF9800);
+}
 
 /* ---------- Feed ---------- */
 .feed-scroll-v27 { flex: 1; overflow-y: auto; padding: 16px; max-width: 620px; margin: 0 auto; width: 100%; -webkit-overflow-scrolling: touch; }

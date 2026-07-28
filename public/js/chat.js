@@ -71,9 +71,21 @@ function renderAvatar(user, extraClass = '') {
   const a = avatarInner(user);
   return `<div class="avatar ${extraClass}" style="${a.style}">${a.html}</div>`;
 }
+
 function badgeHtml(badge) {
   if (!badge) return '';
-  return `<span class="badge-chip ${badge}">${icon('star')}</span>`;
+
+  const icons = {
+    blue_check: "✓",
+    red_check: "✓",
+    gold_lightning: "⚡"
+  };
+
+  return `
+    <span class="badge-chip ${badge}">
+      ${icons[badge] || "✓"}
+    </span>
+  `;
 }
 
 function toDate(iso) { return new Date(iso.endsWith('Z') ? iso : iso + 'Z'); }

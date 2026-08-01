@@ -2753,3 +2753,6 @@ async function finishTour() {
 }
 
 
+
+// Start the app
+bootstrap();
